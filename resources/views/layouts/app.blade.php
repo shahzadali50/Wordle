@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'My Application')</title>
     @livewireStyles
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @vite('resources/css/app.css')
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
+    @vite('resources/css/app.css')
     <!-- Include Alpine.js -->
     <script src="//unpkg.com/alpinejs" defer></script>
     {{--
@@ -46,10 +47,8 @@
         .border-green-600 {
             border-color: rgb(84 22 163);
         }
-        body
-    {
 
-    }
+        body {}
 
         @media only screen and (max-width: 768px) {
             .header-ul li {
@@ -176,6 +175,8 @@
 
     @livewireScripts
     <script src="{{ asset('js/app.js') }}"></script>
+        <!-- Alpine.js CDN (if needed) -->
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </body>
 
 </html>
