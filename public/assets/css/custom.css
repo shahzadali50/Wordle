@@ -1,0 +1,26 @@
+.header-ul li {
+    padding-left: 65px;
+}
+footer .footer-nav{
+    justify-content: space-between !important;
+    margin-bottom: 25px;
+}
+footer .footer-nav ul li{
+    padding-left: 15px;
+}
+footer .footer-nav .copy-right{
+    padding: 0px 20px !important;
+    margin-top: 10px !important;
+}
+.game-card .game-card-img{
+    max-width: 251px;
+    min-width: 250px;
+    min-height: 150px;
+    max-height: 151px;
+}
+@media only screen and (max-width: 768px) {
+    .header-ul li {
+        padding-left: 0px;
+        margin-bottom: 10px;
+    }
+  }
