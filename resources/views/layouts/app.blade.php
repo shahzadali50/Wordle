@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ url('assets/css/custom.css') }}"> --}}
     <style>
         .header-ul li {
-            padding-left: 63px;
+            padding-left: 28px;
         }
 
         footer .footer-nav {

@@ -5,24 +5,33 @@ use App\Livewire\HotGames;
 use App\Livewire\WordleGame;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\LoginController;
+
 
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/dashboard', [MainController::class, 'verifyDashboard'])->name('dashboard');
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::get('sign-up', [LoginController::class, 'register'])->name('register');
+    Route::post('sign-up', [LoginController::class, 'registerUser'])->name('registerUser');
+});
+Route::post('login', [LoginController::class, 'authenticate'])->name('loginPost');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
 Route::get('/hot-games', [GameController::class, 'hotGames'])->name('games.hot');
 Route::get('/new-games', [GameController::class, 'newGames'])->name('games.new');
 Route::get('/favourite-games', [GameController::class, 'favGames'])->name('games.favourite');
 
 
+
+
 Route::get('/about-us', [MainController::class, 'about'])->name('about');
 
-
-// About page
-// Route::get('/about', function () {
-//     return view('livewire.about');
-// })->name('about');
 
 // Define routes using MainController
 Route::get('/about-us', [MainController::class, 'about'])->name('about');
@@ -31,3 +40,9 @@ Route::get('/privacy-policy', [MainController::class, 'privacyPolicy'])->name('p
 Route::get('/copyright', [MainController::class, 'copyright'])->name('copyright');
 Route::get('/term-of-use', [MainController::class, 'termsOfUse'])->name('term-of-use');
 Route::get('/{slug}', [GameController::class, 'show'])->name('games.show');
+
+
+Route::middleware(['auth', AdminMiddleware::class])->as('admin.')->prefix('admin')->group(function () {
+    Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+});
+

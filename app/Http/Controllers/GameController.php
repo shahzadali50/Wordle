@@ -43,4 +43,5 @@ class GameController extends Controller
 
          return view('livewire.favourite-games', ['games' => $games]);
      }
+
 }
