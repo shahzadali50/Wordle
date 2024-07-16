@@ -18,11 +18,11 @@
             <p class="text-lg">{!! $description !!}</p>
         </div>
     </div>
-
     <div class="w-full md:w-1/4 min-h-screen px-5 py-5  rounded-lg flex flex-grow">
         <p class="text-white">This section will be used for ads</p>
     </div>
 </div>
+
 <div class="mt-20">
     @livewire('game-list')
 </div>

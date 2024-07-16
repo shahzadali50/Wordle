@@ -8,6 +8,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\GameContentController;
 
 
 Route::get('/', function () {
@@ -22,16 +23,9 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('login', [LoginController::class, 'authenticate'])->name('loginPost');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
-
 Route::get('/hot-games', [GameController::class, 'hotGames'])->name('games.hot');
 Route::get('/new-games', [GameController::class, 'newGames'])->name('games.new');
 Route::get('/favourite-games', [GameController::class, 'favGames'])->name('games.favourite');
-
-
-
-
-Route::get('/about-us', [MainController::class, 'about'])->name('about');
-
 
 // Define routes using MainController
 Route::get('/about-us', [MainController::class, 'about'])->name('about');
@@ -42,7 +36,13 @@ Route::get('/term-of-use', [MainController::class, 'termsOfUse'])->name('term-of
 Route::get('/{slug}', [GameController::class, 'show'])->name('games.show');
 
 
+
 Route::middleware(['auth', AdminMiddleware::class])->as('admin.')->prefix('admin')->group(function () {
     Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+    Route::get('/game-content/create', [GameContentController::class, 'index'])->name('game.create');
+    Route::post('/image-upload', [GameContentController::class, 'image_upload'])->name('image.upload');
+    Route::post('/game-content/insert', [GameContentController::class, 'insert'])->name('gameContent.insert');
+    Route::get('/game/list', [GameContentController::class, 'list'])->name('game.list');
+
 });
 

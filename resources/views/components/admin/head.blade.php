@@ -72,7 +72,7 @@
         }
 
         .layout-menu i {
-            color: #E02F2F;
+            /* color: #E02F2F; */
         }
 
         .bg-primary {
@@ -87,16 +87,16 @@
         }
 
         .layout-menu .menu-item.active .menu-link {
-            background-color: #D6561A !important;
+            /* background-color: #D6561A !important; */
 
         }
 
         .layout-menu .menu-item.active .menu-link .menu-icon,
         .layout-menu .menu-item.active .menu-link div {
-            color: white !important;
+            /* color: white !important; */
         }
         .layout-navbar i {
-            color: #D6561A !important;
+            /* color: #D6561A !important; */
         }
     </style>
     @stack('css')

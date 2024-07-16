@@ -2,25 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GameContent;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
     public function show($slug)
     {
-        $games = config('games');
+         // Fetch the games configuration
+         $games = config('games');
 
-        if (!array_key_exists($slug, $games)) {
-            abort(404);
-        }
+         // Check if the slug exists in the games configuration
+         if (!array_key_exists($slug, $games)) {
+             abort(404);
+         }
 
-        $game = $games[$slug];
+         // Get the game URL from the configuration
+         $gameUrl = $games[$slug]['gameUrl'];
 
-        return view('game', [
-            'title' => $game['title'],
-            'gameUrl' => $game['gameUrl'],
-            'description' => $game['description']
-        ]);
+         // Fetch the game content by slug from the database
+         $gameContent = GameContent::where('slug', $slug)->firstOrFail();
+
+         return view('game', [
+             'title' => $gameContent->title,
+             'gameUrl' => $gameUrl, // Use the game URL from the configuration
+             'description' => $gameContent->description
+         ]);
     }
 
     public function hotGames()

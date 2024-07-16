@@ -314,7 +314,7 @@ return [
             <li><strong>Gameplay:</strong> Players are presented with images that serve as hints for the crossword puzzle. When you click on an image, the corresponding puzzle space turns yellow, indicating where you should input the word.</li>
             <li><strong>Controls:</strong> Use your keyboard to type in the words. The game automatically checks your answers, providing instant feedback.</li>
         </ul>
-        
+
         <h3>Features And Benefits</h3>
         <p>The Transportation Vocabulary Crossword game offers numerous features and benefits that enhance the learning experience:</p>
         <ul>
@@ -323,7 +323,7 @@ return [
             <li><strong>Immediate Feedback:</strong> Instant feedback on your answers helps you learn from your mistakes and reinforces correct vocabulary usage.</li>
             <li><strong>Educational and Fun:</strong> Combining education with entertainment, the game makes learning new vocabulary enjoyable.</li>
         </ul>
-        
+
         <h3>Enhancing Vocabulary Skills</h3>
         <p>The Transportation Vocabulary Crossword game is specifically designed to improve your vocabulary related to transportation.</p>'
     ],
