@@ -43,6 +43,6 @@ Route::middleware(['auth', AdminMiddleware::class])->as('admin.')->prefix('admin
     Route::post('/image-upload', [GameContentController::class, 'image_upload'])->name('image.upload');
     Route::post('/game-content/insert', [GameContentController::class, 'insert'])->name('gameContent.insert');
     Route::get('/game/list', [GameContentController::class, 'list'])->name('game.list');
-
+    // In web.php
+    Route::get('/admin/game-content/get-description', [GameContentController::class, 'getDescription'])->name('gameContent.getDescription');
 });
-

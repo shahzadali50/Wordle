@@ -6,6 +6,7 @@ use App\Models\GameContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Response;
 
 class GameContentController extends Controller
 {
@@ -29,24 +30,34 @@ class GameContentController extends Controller
 
     {
 
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string',
-            ]);
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-            $description = $request->input('description');
-            $slug = Str::slug(Str::lower($validatedData['title']), '-');
+        $description = $request->input('description');
+        $slug = Str::slug(Str::lower($validatedData['title']), '-');
 
-            // Use updateOrCreate to either update an existing record or create a new one
-            $gameContent = GameContent::updateOrCreate(
-                ['title' => $validatedData['title']], // Attributes to check
-                [
-                    'description' => $description,
-                    'slug' => $slug,
-                ] // Values to update or insert
-            );
+        // Use updateOrCreate to either update an existing record or create a new one
+        $gameContent = GameContent::updateOrCreate(
+            ['title' => $validatedData['title']], // Attributes to check
+            [
+                'description' => $description,
+                'slug' => $slug,
+            ] // Values to update or insert
+        );
 
-            return redirect()->route('admin.game.create')->with('success', 'Game Content saved successfully.');
+        return redirect()->route('admin.game.create')->with('success', 'Game Content saved successfully.');
+    }
+    public function getDescription(Request $request)
+    {
+        $title = $request->input('title');
+        $gameContent = GameContent::where('title', $title)->first();
+
+        if ($gameContent) {
+            return Response::json(['description' => $gameContent->description]);
+        } else {
+            return Response::json(['description' => null]);
         }
     }
-
+}

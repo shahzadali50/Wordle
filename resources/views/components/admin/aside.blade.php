@@ -40,25 +40,13 @@
 
         </li>
         <li class="menu-item {{ request()->routeIs('admin.game.create') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle waves-effect d-flex ">
-                <i class="menu-icon tf-icons mdi mdi-note-outline"></i>
-
+            <a href="{{ Route('admin.game.create') }}" class="menu-link">
+                <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                 <div data-i18n="Game Content">Game Content</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ Route('admin.game.create') }}" class="menu-link">
-                        <div data-i18n="Add">Add</div>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a href="{{ Route('admin.game.list') }}" class="menu-link">
-                        <div data-i18n="List">List</div>
-                    </a>
-                </li>
 
-            </ul>
         </li>
+     
 
     </ul>
 </aside>

@@ -1,60 +1,57 @@
 @extends('layouts.panel')
 @section('title')
 game-content
-
 @endsection
 
 @section('content')
 <div class="row">
-   <div class="card">
-    <div class="card-header bg-dark h4 d-flex justify-content-between "  style="margin-bottom: 49px;">
-        <h3 class="text-white" >Game-Content Create</h3>
-       <div>
-        <a class="btn btn-primary" href="">list</a>
-       </div>
-    </div>
-    <div class="card-body">
-        <div class="col-xs-12">
-            <form action="{{ route('admin.gameContent.insert') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    @if (session('success'))
-                    <div class="col-xs-12">
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    </div>
-                    @endif
+    <div class="card">
+        <div class="card-header bg-dark h4" style="margin-bottom: 49px;">
+            <h3 class="text-white">Game-Content Create</h3>
 
-                    <div class="col-md-6 col-xs-12">
-                        <div class="form-group mb-4">
-                            <label class="form-label" for="Category">Select game title</label>
-                            <select class="form-control js-example-basic-single" id="Category" name="title">
-                                @foreach ($games as $key => $game)
-                                <option value="{{ $game['title'] }}">{{ $game['title'] }}</option>
-                            @endforeach
-                            </select>
-                            @error('title')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
+        </div>
+        <div class="card-body">
+            <div class="col-xs-12">
+                <form action="{{ route('admin.gameContent.insert') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        @if (session('success'))
+                        <div class="col-xs-12">
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        </div>
+                        @endif
+
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group mb-4">
+                                <label class="form-label" for="Category">Select game title</label>
+                                <select class="form-control js-example-basic-single" id="Category" name="title">
+                                    @foreach ($games as $key => $game)
+                                    <option value="{{ $game['title'] }}">{{ $game['title'] }}</option>
+                                    @endforeach
+                                </select>
+                                @error('title')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group mb-4">
+                                <label class="form-label" for="Description">Description</label>
+                                <textarea name="description" id="description" style="display:none;">{!! old('description') !!}</textarea>
+                                <div id="editor-container" style="height: 330px; max-height: 400px; overflow-y: auto;">{!! old('description') !!}</div>
+                                @error('description')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn btn-dark btn-lg btn-block">Save</button>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="form-group mb-4">
-                            <label class="form-label" for="Description">Description</label>
-                            <textarea name="description" id="description" style="display:none;">{!! old('description') !!}</textarea>
-                            <div id="editor-container" style="height: 300px; max-height: 400px; overflow-y: auto;">{!! old('description') !!}</div>
-                            @error('description')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <button type="submit" class="btn btn-dark btn-lg btn-block">Save</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-   </div>
 </div>
 @endsection
 
@@ -88,6 +85,30 @@ game-content
                     ['link'],
                     ['clean']
                 ]
+            }
+        });
+
+        // Fetch description when a game is selected
+        $('#Category').on('change', function() {
+            var title = $(this).val();
+            if (title) {
+                $.ajax({
+                    url: '{{ route("admin.gameContent.getDescription") }}',
+                    type: 'GET',
+                    data: { title: title },
+                    success: function(response) {
+                        if (response.description) {
+                            quill.root.innerHTML = response.description;
+                        } else {
+                            quill.root.innerHTML = '';
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching description:', error);
+                    }
+                });
+            } else {
+                quill.root.innerHTML = '';
             }
         });
 
